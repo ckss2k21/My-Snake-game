@@ -1,0 +1,65 @@
+*{
+    box-sizing: border-box;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: antiquewhite;
+}
+
+#game-arena {
+    height: 400px;
+    width: 400px;
+    background-color: thistle;
+    position: relative;
+    box-shadow: 0 0 10px rgb(194, 187, 194);
+    border-radius: 5px;
+}
+
+.food-item{
+    height: 20px;
+    width: 20px;
+    border-radius: 50%;
+    background-color: rgb(233, 23, 23);
+    position: absolute;
+    animation: blink 0.5s linear infinite;
+}
+.snake {
+    height: 20px;
+    width: 20px;
+    position: absolute;
+    background-color: green;
+    border: 1px solid rgb(107, 104, 104);
+    border-radius: 5px;
+}
+#score-board {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 150px;
+    padding: 10px;
+    background-color: rgb(233, 184, 121);
+    margin-bottom: 8px;
+    box-shadow: 0 0 10px rgb(223, 215, 206);
+    border-radius: 5px;
+}
+#score-board-text {
+    text-align: center;
+    width: 100%;
+}
+.scores {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+#start-game {
+    margin-top: 20px;
+    padding: 10px 20px;
+}
+@keyframes blink {
+    0%, 100% {opacity: 1;}
+    50% {opacity: 0.5;}
+  }
