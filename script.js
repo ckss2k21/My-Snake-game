@@ -1,5 +1,5 @@
 const gameArena = document.getElementById("game-arena");
-
+const mobButtonDiv = document.querySelectorAll('.arrows');
 
 let gameStarted = false;
 const cellPadding = 20; //in pixel
@@ -10,26 +10,39 @@ let food = {r:300, c:200}; // intial position of food () (15*20, 10*20) (15th ro
 
 let dc = cellPadding; //going right
 let dr  = 0; // in the same row
-
-function changeDirection(event) {
-    let keyPress = event.key;
-    console.log(keyPress);
-    if(keyPress ==='ArrowUp') {
+ 
+function changeDirection(keyPress) {
+    const isMovingDown = dr === cellPadding;
+    const isMovingUp = dr === -cellPadding;
+    const isMovingLeft = dc === -cellPadding;
+    const isMovingRight = dc === cellPadding;
+    if((keyPress ==='ArrowUp'  || keyPress ==='up') && !isMovingDown) {
         dc = 0;
         dr = -cellPadding;
     } 
-    else if(keyPress === 'ArrowDown') {
+    else if((keyPress === 'ArrowDown'  || keyPress ==='down') && !isMovingUp) {
         dc = 0;
         dr = cellPadding;
     }
-    else if(keyPress === 'ArrowLeft') {
+    else if((keyPress === 'ArrowLeft' || keyPress ==='left') && !isMovingRight) {
         dc = -cellPadding;
         dr = 0;
     }
-    else {
+    else if((keyPress === 'ArrowRight' || keyPress ==='right') && !isMovingLeft) {
         dc = cellPadding;
         dr = 0;
+
     }
+}
+function changeDirectionMob(event) {
+    
+    const clickedArrow = event.target.getAttribute('id');
+    changeDirection(clickedArrow);
+}
+function changeDirectionForDesktop(event) {
+    const keyPress = event.key;
+    changeDirection(keyPress)
+    
 }
 function drawDiv(r,c,className) {
     let div = document.createElement("div");
@@ -77,7 +90,6 @@ function updateHighScoreInDB() {
 function updateSnake() {
     let newHead = {r : snake[0].r + dr , c : snake[0].c + dc};
     snake.unshift(newHead); // add new element at the beging of array
-    console.log(snake.length);
     if(newHead.r === food.r && newHead.c === food.c) {
         score += 10;
         highScore += 10;
@@ -88,9 +100,7 @@ function updateSnake() {
         generateRandomFood();
         
     } else {
-        console.log("inside else");
         snake.pop();
-        console.log(snake.length);
     }
 }
 function isGameOver() {
@@ -124,8 +134,13 @@ function startGame() {
     document.getElementById('start-game').style.display='none';
     if(!gameStarted) {
         gameStarted = true; 
-        document.getElementById('score-board-text').textContent = "Game Started..!!";
-        document.addEventListener('keydown',changeDirection);
+        document.getElementById('score-board-text').textContent = "Game Running..!!";
+        document.addEventListener('keydown',changeDirectionForDesktop);
+        const mobButtonDiv = document.querySelectorAll('.arrow');
+        mobButtonDiv.forEach((arrows) => {
+            arrows.addEventListener("click",changeDirectionMob); 
+        });
+       
         gameLoop();
     }
 }
@@ -161,6 +176,7 @@ document.addEventListener("DOMContentLoaded", () => {
         button.id ="start-game";
         button.textContent="Start Game";
         document.body.appendChild(button);
+        
         drawfoodAndSnake();
         button.addEventListener("click", startGame);
 

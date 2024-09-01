@@ -63,3 +63,62 @@ body {
     0%, 100% {opacity: 1;}
     50% {opacity: 0.5;}
   }
+
+  .mob-handling {
+    position: relative;
+    margin-top: 10px;
+    width: 100px;
+    height: 100px;
+    display: none;
+}
+
+.arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+.arrow:hover {
+    border-color: transparent transparent rgb(228, 224, 224) transparent;
+}
+
+/* Up Arrow */
+#up {
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 0 20px 20px 20px;
+    border-color: transparent transparent black transparent;
+}
+
+/* Left Arrow */
+#left {
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    border-width: 20px 20px 20px 0;
+    border-color: transparent black transparent transparent;
+}
+
+/* Right Arrow */
+#right {
+    top: 50%;
+    right: 0;
+    transform: translateY(-50%);
+    border-width: 20px 0 20px 20px;
+    border-color: transparent transparent transparent black;
+}
+
+/* Down Arrow */
+#down {
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 20px 20px 0 20px;
+    border-color: black transparent transparent transparent;
+}
+@media only screen and (max-width: 600px) {
+    .mob-handling {
+      display: block;
+    }
+  }
